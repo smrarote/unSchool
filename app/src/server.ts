@@ -1,10 +1,6 @@
-/**
- * @category General Use
- */
-function sam(x: number): void {
-  console.log(x);
-  return;
-}
+import winLogger from './utils/winston.util.js';
+import app from './app.js';
 
-sam(1);
-console.log(process.env.NODE_ENV);
+app.listen(3000, () => {
+  winLogger.http('running');
+});
