@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "ES6",
+    "outDir": "build",
+    "rootDir": "app/src",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true
+  },
+  "typedocOptions": {
+    "entryPoints" : ["app/src/server.ts"],
+    "out" : "documentation"
+  },
+  "include": ["app/src/**/*.ts"],
+  "exclude": ["node_modules", "./node_modules", "./node_modules/*", "./node_modules/@types/node/index.d.ts"]
+}

@@ -1,0 +1,9 @@
+{
+    "watch" : ["build"],
+    "ext" : "ts,js,json",
+    "ignore" : ["node_modules", "documentation", "app"],
+    "restartable" : "reset",
+    "env" : {
+        "NODE_ENV" : "dev"
+    }
+}
