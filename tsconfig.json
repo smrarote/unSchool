@@ -13,8 +13,8 @@
     "skipLibCheck": true
   },
   "typedocOptions": {
-    "entryPoints" : ["app/src/server.ts"],
-    "out" : "documentation"
+    "entryPoints": ["app/src/server.ts"],
+    "out": "documentation"
   },
   "include": ["app/src/**/*.ts"],
   "exclude": ["node_modules", "./node_modules", "./node_modules/*", "./node_modules/@types/node/index.d.ts"]
