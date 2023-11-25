@@ -8,7 +8,7 @@ export const signIn = catchAsync(async (_req: Request, _res: Response, _next: Ne
   response(_res, {
     code: statusCodes.SUCCESS,
     success: true,
-    message: 'hey',
+    message: 'signin',
   });
 });
 
@@ -17,6 +17,6 @@ export const signUp = catchAsync(async (_req: Request, _res: Response, _next: Ne
   response(_res, {
     code: statusCodes.SUCCESS,
     success: true,
-    message: 'hey',
+    message: 'signup',
   });
 });
