@@ -20,7 +20,7 @@ const errorHandler = (err: genError, req: Request, res: Response, next: NextFunc
     status: errStatus,
     message: errMsg,
     name: errName,
-    error: errBody,
+    body: errBody,
     stack: process.env.NODE_ENV === 'dev' ? errStack : {},
   });
 };

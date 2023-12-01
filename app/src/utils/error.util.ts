@@ -9,8 +9,9 @@ export interface genError extends Error {
 export default class GenError extends Error implements genError {
   status = 500;
   body = {};
+  name = 'SYSTEM_ERR';
   success: false;
-  constructor(message: string, status: number, error: object | undefined | null, stack: string | undefined | null) {
+  constructor(message: string, status: number, error: object | undefined | null, stack: string | undefined | null, name: string = 'SYSTEM_ERR') {
     super(message);
     this.status = status;
     this.success = false;
@@ -19,6 +20,9 @@ export default class GenError extends Error implements genError {
     }
     if (stack) {
       super.stack = stack;
+    }
+    if (name) {
+      this.name = name;
     }
   }
 }

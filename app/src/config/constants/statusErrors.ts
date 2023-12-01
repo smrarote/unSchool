@@ -9,6 +9,7 @@ export const statusCodes = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   SERVER_ERR: 500,
+  PARAMETER_VALIDATION: 422,
 };
 
 export const errorNames = {

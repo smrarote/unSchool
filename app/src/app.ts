@@ -20,6 +20,12 @@ app.use(
   }),
 );
 app.use('/api/v1', routeMap);
+app.use('*', (_: express.Request, res: express.Response) => {
+  return res.status(201).json({
+    code: 200,
+    message: 'Server Running ...',
+  });
+});
 app.use(errorHandler);
 
 export default app;
