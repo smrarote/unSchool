@@ -13,7 +13,7 @@ app.use(helment());
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.BASE_URL,
+    origin: '*',
     optionsSuccessStatus: 204,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
