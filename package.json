@@ -1,6 +1,10 @@
 {
   "name": "unschool",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=7.0.0"
+  },
   "description": "Video based interactive learning platform for lerners",
   "main": "server.js",
   "type": "module",

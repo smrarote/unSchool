@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { catchAsync, GenError, winLogger, errorNames, statusCodes, response, requestHandler } from '../../common.imports.js';
