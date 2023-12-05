@@ -19,9 +19,14 @@
     "lint": "eslint app/**/*.ts --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prepare": "husky install",
-    "dev:migrate:db": "dotenv -e .env.dev prisma db pull",
-    "test:migrate:db": "dotenv -e .env.test prisma db pull",
-    "prod:migrate:db": "dotenv -e .env.prod prisma db pull"
+    "prisma:format": "npx prisma format",
+    "dev:pull:db": "dotenv -e .env.dev prisma db pull",
+    "test:pull:db": "dotenv -e .env.test prisma db pull",
+    "prod:pull:db": "dotenv -e .env.prod prisma db pull",
+    "generate:db": "dotenv -e .env.dev npx prisma migrate dev --create-only",
+    "dev:migrate:db": "dotenv -e .env.dev npx prisma migrate dev",
+    "test:migrate:db": "dotenv -e .env.test npx prisma migrate deploy",
+    "prod:migrate:db": "dotenv -e .env.prod npx prisma migrate deploy"
   },
   "repository": {
     "type": "git",
