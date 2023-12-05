@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "prod": "cross-env NODE_ENV=prod node build/server.js",
+    "prod": "NODE_ENV=prod node build/server.js",
     "dev": "cross-env NODE_ENV=dev nodemon build/server.js",
     "debug": "cross-env NODE_ENV=test node --inspect-brk=127.0.0.1:9200 build/server.js",
     "test": "cross-env NODE_ENV=test jest",
@@ -18,7 +18,10 @@
     "doc": "npx typedoc --out documentation",
     "lint": "eslint app/**/*.ts --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dev:migrate:db": "dotenv -e .env.dev prisma db pull",
+    "test:migrate:db": "dotenv -e .env.test prisma db pull",
+    "prod:migrate:db": "dotenv -e .env.prod prisma db pull"
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
   },
   "homepage": "https://github.com/smrarote/unSchool#readme",
   "dependencies": {
+    "@prisma/client": "^5.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "dotenv-safe": "^8.2.0",
@@ -44,7 +48,6 @@
     "helmet": "^7.1.0",
     "moment": "^2.29.4",
     "path": "^0.12.7",
-    "prisma": "^5.6.0",
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1",
     "zod": "^3.22.4"
@@ -60,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
@@ -69,6 +73,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "prisma": "^5.6.0",
     "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.25.3",

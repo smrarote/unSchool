@@ -25,6 +25,6 @@ void (async (): Promise<void> => {
 })();
 
 // handle
-app.listen(process.env.PORT ?? 2000, () => {
+app.listen(process.env.PORT ?? 3000, () => {
   winLogger.info(` Server : Running : ${process.env.PORT || 3000}`);
 });
