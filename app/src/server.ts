@@ -1,5 +1,5 @@
 import winLogger from './utils/winston.util.js';
-import bootConfig from './utils/boot.util.js';
+import bootConfig from './scripts/system/boot.js';
 import { URL } from 'url';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = new URL('.', import.meta.url).pathname;

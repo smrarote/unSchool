@@ -56,5 +56,4 @@ const bootConfig = async (): Promise<Response> => {
       }),
     );
 };
-
 export default bootConfig;
