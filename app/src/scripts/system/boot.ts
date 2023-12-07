@@ -1,6 +1,9 @@
 import path from 'path';
 import fs from 'fs';
 import { URL } from 'url';
+import DataBase from '../../config/db/index.js';
+const db = DataBase.db();
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -24,36 +27,26 @@ type Response =
   | {
       success: true;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: object | undefined | null;
+      data: object | string | undefined | null;
     }
   | {
       success: false;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: object | undefined | null;
     };
-const bootConfig = async (): Promise<Response> => {
-  return await Promise.all(
-    [generateDir].map((asyncFn) => {
-      return new Promise((res, rej) => {
-        asyncFn()
-          .then((data) => res(data))
-          .catch((e) => {
-            rej(e);
-          });
-      });
-    }),
-  )
-    .then(
-      (data): Response => ({
-        success: true,
-        data: data,
-      }),
-    )
-    .catch(
-      (e): Response => ({
-        success: false,
-        error: e,
-      }),
-    );
+const boot = async (): Promise<Response> => {
+  try {
+    await generateDir();
+    await db.connect();
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+  return {
+    success: true,
+    data: 'Server Booted',
+  };
 };
-export default bootConfig;
+export default boot;

@@ -1,5 +1,7 @@
 import winLogger from './utils/winston.util.js';
-import bootConfig from './scripts/system/boot.js';
+import boot from './scripts/system/boot.js';
+import shutDown from './scripts/system/shutdown.js';
+import { Server } from 'http';
 import { URL } from 'url';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = new URL('.', import.meta.url).pathname;
@@ -14,17 +16,24 @@ dotenv.config({
 });
 
 import app from './app.js';
+let server: Server | null = null;
 // boot process
 void (async (): Promise<void> => {
-  const response = await bootConfig();
+  const response = await boot();
   if (response.success) {
     winLogger.info('Server : Boot : Success');
   } else {
     winLogger.info(`Server : Boot : failed : ${response.error}`);
   }
+  server = app.listen(process.env.PORT ?? 3000, () => {
+    winLogger.info(` Server : Running : ${process.env.PORT || 3000}`);
+  });
 })();
 
-// handle
-app.listen(process.env.PORT ?? 3000, () => {
-  winLogger.info(` Server : Running : ${process.env.PORT || 3000}`);
-});
+const shutDownProcedure = async (): Promise<void> => {
+  if (server) server.close();
+  await shutDown();
+};
+
+process.on('SIGTERM', shutDownProcedure);
+process.on('SIGINT', shutDownProcedure);
