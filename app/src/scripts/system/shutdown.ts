@@ -18,7 +18,6 @@ const shutDown = async (): Promise<Response> => {
   try {
     await db.disconnect();
     winLogger.info('Server ShutDown');
-    process.exit(0);
   } catch (error) {
     return {
       success: false,

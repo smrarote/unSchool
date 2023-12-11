@@ -33,7 +33,6 @@
         "selector": "function",
         "format": ["camelCase", "UPPER_CASE", "PascalCase"]
       }
-    ],
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+    ]
   }
 }

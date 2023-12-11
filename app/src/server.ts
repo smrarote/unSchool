@@ -33,6 +33,7 @@ void (async (): Promise<void> => {
 const shutDownProcedure = async (): Promise<void> => {
   if (server) server.close();
   await shutDown();
+  process.exit(0);
 };
 
 process.on('SIGTERM', shutDownProcedure);
