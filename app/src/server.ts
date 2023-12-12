@@ -22,12 +22,12 @@ void (async (): Promise<void> => {
   const response = await boot();
   if (response.success) {
     winLogger.info('Server : Boot : Success');
+    server = app.listen(process.env.PORT ?? 3000, () => {
+      winLogger.info(` Server : Running : ${process.env.PORT || 3000}`);
+    });
   } else {
     winLogger.info(`Server : Boot : failed : ${response.error}`);
   }
-  server = app.listen(process.env.PORT ?? 3000, () => {
-    winLogger.info(` Server : Running : ${process.env.PORT || 3000}`);
-  });
 })();
 
 const shutDownProcedure = async (): Promise<void> => {
