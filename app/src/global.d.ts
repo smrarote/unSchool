@@ -1,10 +1,10 @@
 export type Success = {
-  success: true;
-  data: object | string;
+  success: boolean;
+  data: object | string | null;
 };
 
 export type Failure = {
-  success: false;
+  success: boolean;
   error: object;
 };
 

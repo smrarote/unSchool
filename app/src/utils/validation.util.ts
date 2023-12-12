@@ -1,9 +1,13 @@
 import * as z from 'zod';
-type ValidationResult = {
-  success: true | false;
-  data?: object;
-  error?: z.ZodError<unknown>;
-};
+type ValidationResult =
+  | {
+      success: true;
+      data: object;
+    }
+  | {
+      success: false;
+      error: object;
+    };
 
 export default class Validator {
   validatorObject: unknown = null;
@@ -13,6 +17,6 @@ export default class Validator {
   ) {}
   validate(): ValidationResult {
     const result = this.Schema.safeParse(this.data);
-    return result.success ? result : { success: false, error: result.error };
+    return result.success ? { success: true, data: result.data } : { success: false, error: JSON.parse(result.error.toString()) };
   }
 }

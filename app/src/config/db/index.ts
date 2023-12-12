@@ -3,7 +3,7 @@ import winLogger from '../../utils/winston.util.js';
 const prisma = new PrismaClient();
 export default class DataBase {
   private static instance: DataBase | null = null;
-  private client = prisma;
+  public client = prisma;
   private constructor() {}
   public static db(): DataBase {
     if (DataBase.instance) {
