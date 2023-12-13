@@ -18,7 +18,10 @@ model users {
   password   String    @db.VarChar(255)
   verified   Boolean   @default(false) @db.Boolean
   social     Json?     @db.Json
-  createdAt  DateTime  @db.Timestamp(6)
+  createdAt  DateTime  @default(now()) @db.Timestamp(6)
   deletedAt  DateTime? @db.Timestamp(6)
   updatedAt  DateTime  @updatedAt @db.Timestamp(6)
+
+  @@unique([username, email])
+  @@map("users")
 }

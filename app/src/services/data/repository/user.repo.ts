@@ -4,7 +4,7 @@ import Validator from '../../../utils/validation.util.js';
 import { Result } from '../../../global';
 import { userSchema } from '../validators.js';
 import { ValError } from '../errors.js';
-
+import { User } from '../../services';
 export default class UserRepo {
   private db = DataBase.db();
   constructor(public userId: string) {
@@ -21,12 +21,12 @@ export default class UserRepo {
       .then((data) => ({ success: true, data }))
       .catch((error) => ({ success: false, error }));
   }
-  async createUser(user: object): Promise<Result> {
+  async createUser(user: User): Promise<Result> {
     const valRes = new Validator(userSchema, user).validate();
     if (!valRes.success) {
-      return { success: false, error: new ValError('Falied User body Validation', valRes.error) };
+      return { success: false, error: new ValError('Failed Create : User Body Validation', valRes.error) };
     }
-    user = valRes.data;
+    user = valRes.data as User;
     return await this.db.client.users
       .create({
         data: user,
