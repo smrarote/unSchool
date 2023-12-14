@@ -5,6 +5,7 @@ import { Result } from '../../../global';
 import { userSchema } from '../validators.js';
 import { ValError } from '../errors.js';
 import { User } from '../../services';
+import { boolean } from 'zod';
 export default class UserRepo {
   private db = DataBase.db();
   constructor(public userId: string) {
@@ -30,6 +31,27 @@ export default class UserRepo {
     return await this.db.client.users
       .create({
         data: user,
+      })
+      .then((data) => ({ success: true, data }))
+      .catch((error) => ({ success: false, error }));
+  }
+  async isValid(): Promise<Result> {
+    return this.db.client.users
+      .findFirst({
+        where: {
+          user_id: this.userId,
+          verified: true,
+        },
+      })
+      .then((data) => ({ success: true, data }))
+      .catch((error) => ({ success: false, error }));
+  }
+  async findUser(): Promise<Result> {
+    return this.db.client.users
+      .findFirst({
+        where: {
+          user_id: this.userId,
+        },
       })
       .then((data) => ({ success: true, data }))
       .catch((error) => ({ success: false, error }));
