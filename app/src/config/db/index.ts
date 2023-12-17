@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from './client.js';
 import winLogger from '../../utils/winston.util.js';
-const prisma = new PrismaClient();
 export default class DataBase {
   private static instance: DataBase | null = null;
   public client = prisma;

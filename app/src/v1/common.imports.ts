@@ -5,4 +5,5 @@ import response from '../utils/response.util.js';
 import catchAsync from '../utils/catchAsync.util.js';
 import validationHandler from '../middlewares/validator.middleware.js';
 import requestHandler from '../utils/request.util.js';
-export { catchAsync, GenError, winLogger, statusCodes, errorNames, response, validationHandler, requestHandler };
+import { UserRepo } from '../services/data/index.js';
+export { catchAsync, GenError, winLogger, statusCodes, errorNames, response, validationHandler, requestHandler, UserRepo };

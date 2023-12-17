@@ -1,11 +1,11 @@
 import * as z from 'zod';
 type ValidationResult =
   | {
-      success: true;
+      state: 'success';
       data: object;
     }
   | {
-      success: false;
+      state: 'failed';
       error: object;
     };
 
@@ -17,6 +17,6 @@ export default class Validator {
   ) {}
   validate(): ValidationResult {
     const result = this.Schema.safeParse(this.data);
-    return result.success ? { success: true, data: result.data } : { success: false, error: JSON.parse(result.error.toString()) };
+    return result.success ? { state: 'success', data: result.data } : { state: 'failed', error: JSON.parse(result.error.toString()) };
   }
 }

@@ -7,7 +7,8 @@ import jwt from 'jsonwebtoken';
 import { Result } from '../global';
 // generate hash based on the salt rounds
 export const genHash = async (plainText: string): Promise<string> => {
-  return await bcrypt.hash(plainText, SALT_ROUNDS);
+  const salt: number | string = await bcrypt.genSalt(SALT_ROUNDS);
+  return await bcrypt.hash(plainText, salt);
 };
 
 // compair the encryption
@@ -47,7 +48,7 @@ export const jwtVerify = (token: string): Result => {
   try {
     decode = jwt.verify(token, TOP_SECRET);
   } catch (error) {
-    return { success: false, error: error };
+    return { state: 'failed', error: error };
   }
-  return { success: true, data: decode };
+  return { state: 'success', data: decode };
 };

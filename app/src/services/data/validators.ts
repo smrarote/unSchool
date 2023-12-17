@@ -14,7 +14,11 @@ export const userSchema = z.object({
     .transform((data) => data.trim())
     .nullable(),
   email: z.string().email(),
-  mobile: z.string().regex(/^\+?\d{10}$/),
+  mobile: z
+    .string()
+    .regex(/^\+?\d{10}$/)
+    .nullable()
+    .optional(),
   password: z
     .string()
     .min(5)
@@ -25,5 +29,6 @@ export const userSchema = z.object({
     .object({
       linkedIn: z.string().url().nullable(),
     })
-    .nullable(),
+    .nullable()
+    .optional(),
 });

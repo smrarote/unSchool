@@ -8,19 +8,18 @@ datasource db {
 }
 
 model users {
-  id         BigInt    @default(autoincrement())
-  user_id    String    @id @default(uuid()) @db.Uuid()
-  username   String    @unique @db.VarChar(100)
-  first_name String    @db.VarChar(50)
-  last_name  String?   @db.VarChar(50)
-  email      String    @unique @db.VarChar(100)
-  mobile     String?   @unique @db.VarChar(20)
-  password   String    @db.VarChar(255)
-  verified   Boolean   @default(false) @db.Boolean
-  social     Json?     @db.Json
-  createdAt  DateTime  @default(now()) @db.Timestamp(6)
-  deletedAt  DateTime? @db.Timestamp(6)
-  updatedAt  DateTime  @updatedAt @db.Timestamp(6)
+  id         BigInt   @default(autoincrement())
+  user_id    String   @id @default(uuid()) @db.Uuid()
+  username   String   @unique @db.VarChar(100)
+  first_name String   @db.VarChar(50)
+  last_name  String?  @db.VarChar(50)
+  email      String   @unique @db.VarChar(100)
+  mobile     String?  @unique @db.VarChar(20)
+  password   String   @db.VarChar(255)
+  verified   Boolean  @default(false) @db.Boolean
+  social     Json?    @db.Json
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime @updatedAt @db.Timestamp(6)
 
   @@unique([username, email])
   @@map("users")
