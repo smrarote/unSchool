@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextFunction, Request, Response } from 'express';
 import { UserDTO } from '../../../services/services';
@@ -26,12 +27,15 @@ export const signIn = requestHandler(async (_req: Request, _res: Response, _next
   if (!(await compHash(password, user.password))) {
     return _next(new GenError('Invalid Credentials', statusCodes.FORBIDDEN, null, null, errorNames.validation));
   }
-  // assign the JWT token
-  const token = jwtSign({
-    user_id: user.user_id,
-    createAt: new Date(),
-    ip: _req.ip,
-  });
+  // assign the JWT token with expiry of 3 days
+  const token = jwtSign(
+    {
+      user_id: user.user_id,
+      createAt: new Date(),
+      ip: _req.ip,
+    },
+    3 * 24 * 60,
+  );
   response(_res, {
     code: statusCodes.SUCCESS,
     success: true,
