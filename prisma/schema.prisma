@@ -50,21 +50,23 @@ model category {
 }
 
 model courses {
-  id            BigInt          @default(autoincrement())
-  course_id     String          @id @default(cuid())
-  category      category        @relation(fields: [cat_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  cat_id        BigInt
-  title         String
-  disc          String?
-  chapter       chapters        @relation(fields: [chap_id], references: [chap_id], onDelete: Restrict, onUpdate: Cascade)
-  chap_id       String
-  price         Int             @default(0)
-  active        Boolean         @default(true)
-  createdAt     DateTime        @default(now())
-  updateAt      DateTime        @updatedAt
-  subscriptions subscriptions[]
-  videos        videos[]
-  attachments   attachments[]
+  id              BigInt          @default(autoincrement())
+  course_id       String          @id @default(cuid())
+  category        category        @relation(fields: [cat_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  cat_id          BigInt
+  title           String
+  disc            String?
+  chapter         chapters        @relation(fields: [chap_id], references: [chap_id], name: "first_chapter", onDelete: Restrict, onUpdate: Cascade)
+  chap_id         String
+  price           Int             @default(0)
+  active          Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updateAt        DateTime        @updatedAt
+  subscriptions   subscriptions[]
+  videos          videos[]
+  attachments     attachments[]
+  chapters        chapters?       @relation(fields: [chaptersChap_id], references: [chap_id])
+  chaptersChap_id String?
 }
 
 enum PaymentStatus {
@@ -115,29 +117,44 @@ model attachments {
   createdAt        DateTime  @default(now())
   updateAt         DateTime  @updatedAt
   content          content[]
-  courses          courses?  @relation(fields: [coursesCourse_id], references: [course_id])
+  courses          courses?  @relation(fields: [coursesCourse_id], references: [course_id], onDelete: Restrict, onUpdate: Cascade)
   coursesCourse_id String?
 }
 
 model content {
-  id         BigInt       @default(autoincrement())
-  cont_id    String       @id @default(cuid())
-  title      String
-  disc       String?
-  vidoe      videos?      @relation(fields: [vid_id], references: [vid_id], onDelete: Restrict, onUpdate: Cascade)
-  vid_id     String?
-  attachment attachments? @relation(fields: [att_id], references: [att_id], onDelete: Restrict, onUpdate: Cascade)
-  att_id     String?
-  chap_id    String
-  createdAt  DateTime     @default(now())
-  updateAt   DateTime     @updatedAt
-  chapters   chapters[]
+  id             BigInt       @default(autoincrement())
+  cont_id        String       @id @default(cuid())
+  title          String
+  disc           String?
+  vidoe          videos?      @relation(fields: [vid_id], references: [vid_id], onDelete: Restrict, onUpdate: Cascade)
+  vid_id         String?
+  attachment     attachments? @relation(fields: [att_id], references: [att_id], onDelete: Restrict, onUpdate: Cascade)
+  att_id         String?
+  parent         content?     @relation("parent_content", fields: [parent_id], references: [cont_id], name: "self_parent", onDelete: Restrict, onUpdate: Cascade)
+  parent_id      String?
+  chapter        chapters     @relation(fields: [chap_id], references: [chap_id], onDelete: Restrict, onUpdate: Cascade)
+  chap_id        String
+  createdAt      DateTime     @default(now())
+  updateAt       DateTime     @updatedAt
+  children       content[]    @relation("parent_content")
+  content        content[]
+  content        content?     @relation(fields: [contentCont_id], references: [cont_id])
+  contentCont_id String?
+  chapters       chapters[]
 }
 
 model chapters {
-  id      BigInt    @default(autoincrement())
-  chap_id String    @id @default(cuid())
-  content content   @relation(fields: [cont_id], references: [cont_id], onDelete: Restrict, onUpdate: Cascade)
-  cont_id String
-  courses courses[]
+  id              BigInt     @default(autoincrement())
+  chap_id         String     @id @default(cuid())
+  contents        content    @relation(fields: [cont_id], references: [cont_id], name: "first", onDelete: Restrict, onUpdate: Cascade)
+  cont_id         String
+  parent          chapters?  @relation("parent_chapter", fields: [parent_id], references: [chap_id], name: "parent", onDelete: Restrict, onUpdate: Cascade)
+  parent_id       String?
+  courses         courses[]
+  content         content[]
+  children        chapters[] @relation("parent_chapter")
+  courses         courses[]
+  chapters        chapters[]
+  chapters        chapters?  @relation(fields: [chaptersChap_id], references: [chap_id])
+  chaptersChap_id String?
 }
