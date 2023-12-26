@@ -16,4 +16,5 @@ export const errorNames = {
   validation: 'VALIDN_ERR',
   db: 'DB_ERR',
   system: 'SYSM_ERR',
+  unauth: 'UNAUTHORIZED_ERR',
 };

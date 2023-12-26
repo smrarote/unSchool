@@ -6,4 +6,5 @@ import catchAsync from '../utils/catchAsync.util.js';
 import validationHandler from '../middlewares/validator.middleware.js';
 import requestHandler from '../utils/request.util.js';
 import { UserRepo } from '../services/data/index.js';
-export { catchAsync, GenError, winLogger, statusCodes, errorNames, response, validationHandler, requestHandler, UserRepo };
+import reqValidation from '../middlewares/req.middlewares.js';
+export { catchAsync, GenError, winLogger, statusCodes, errorNames, response, validationHandler, requestHandler, UserRepo, reqValidation };

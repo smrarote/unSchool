@@ -4,7 +4,7 @@ const SALT_ROUNDS = 10;
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY ?? 'IWILLDEDeMOIE4UMYL0V3';
 const TOP_SECRET = process.env.TOP_SECRET ?? 'IWILLDEDeMOIE4UMYL0V3';
 import jwt from 'jsonwebtoken';
-import { Result } from '../global';
+import winLogger from './winston.util.js';
 // generate hash based on the salt rounds
 export const genHash = async (plainText: string): Promise<string> => {
   const salt: number | string = await bcrypt.genSalt(SALT_ROUNDS);
@@ -43,12 +43,13 @@ export const jwtSign = (data: object, _ex: number = 60): string => {
   );
 };
 
-export const jwtVerify = (token: string): Result => {
+export const jwtVerify = (token: string): string | object | null => {
   let decode = null;
   try {
     decode = jwt.verify(token, TOP_SECRET);
   } catch (error) {
-    return { state: 'failed', error: error };
+    winLogger.error(error);
+    return null;
   }
-  return { state: 'success', data: decode };
+  return decode;
 };
