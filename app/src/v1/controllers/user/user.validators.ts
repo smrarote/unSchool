@@ -7,14 +7,7 @@ export const signIn = [
 
 // username, first_name, last_name, email, mobile, password, socia
 export const signUp = [
-  body('username')
-    .exists()
-    .withMessage('username required')
-    .trim()
-    .notEmpty()
-    .withMessage('Username required')
-    .isAlphanumeric()
-    .withMessage('only alpha numeric values allowed'),
+  body('username').exists().withMessage('username required').trim().notEmpty().withMessage('Username required'),
   body('password').exists().withMessage('password required').trim().notEmpty().withMessage('Password is required').isLength({
     min: 3,
     max: 50,
