@@ -6,7 +6,7 @@ import winLogger from '../utils/winston.util.js';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const reqValidation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   // from header read authentication
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers['Authorization'] as string;
   if (!authHeader) {
     return next(new GenError('validation error', statusCodes.UNOTHORIZED, {}, null, errorNames.unauth));
   }
