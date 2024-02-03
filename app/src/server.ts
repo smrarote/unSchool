@@ -38,3 +38,4 @@ const shutDownProcedure = async (): Promise<void> => {
 
 process.on('SIGTERM', shutDownProcedure);
 process.on('SIGINT', shutDownProcedure);
+process.on('unhandledRejection', () => [winLogger.error('undhandled error')]);
