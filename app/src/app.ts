@@ -21,9 +21,9 @@ app.use(
 );
 app.use('/api/v1', routeMap);
 app.use('/health', (_: express.Request, res: express.Response) => {
-  res.status(200).json({
+  return res.status(200).json({
     code: 200,
-    message: 'Server Running',
+    message: 'Server Running 😎',
   });
 });
 app.use('*', (_: express.Request, res: express.Response, next: express.NextFunction) => {
